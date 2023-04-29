@@ -1,0 +1,50 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Phonics Cards</title>
+  <!-- <meta name="Phonics Cards" content=""> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <button id = "back" class="intro hidden">←</button>
+  <h1 class="intro">Choose your level:</h1>
+  <div class="button-wrapper intro">
+    <button id="deck2" class="deck_button">Phase 2</button>  
+  </div>
+  <div class="button-wrapper intro">
+    <button id="deck3" class="deck_button">Phase 3</button>  
+  </div>
+  <div class="button-wrapper intro">
+    <button id="deck4" class="deck_button">Phase 4</button> 
+  </div>
+  <div class="button-wrapper intro">
+    <button id="deck5" class="deck_button">Phase 5</button>  
+  </div>
+
+  <div id = "cards"></div>
+  <div id=audio>
+    <audio id="audio1" class = "audio" preload="auto">
+      <source src="./audio/button.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- <script src="js/vendor/modernizr-{{MODERNIZR_VERSION}}.min.js"></script> -->
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
