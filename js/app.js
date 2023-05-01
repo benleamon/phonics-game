@@ -5,7 +5,7 @@ let whatDeck ="";
 // Get the links to the images stored on the server.
 function getImageList() {
   // Path to JSON file
-  const jsonPath = "../files.json";
+  const jsonPath = "./files.json";
 
   // Fetch the JSON data
   return fetch(jsonPath)
