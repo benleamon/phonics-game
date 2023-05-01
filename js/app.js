@@ -47,39 +47,53 @@ function removeCards(){
   })
 }
 
-function addSounds(list){
+function addSound(cardId){
+  //Create audio element 
+  const audioElement = document.createElement("audio")
+  audioElement.id= "sound"+cardId;
+  audioElement.preload = "auto";
 
+  //Create source 
+  const sourceElement = document.createElement("source");
+  sourceElement.src = "audio/" + cardId + ".mp3";
+  sourceElement.type = "audio/mpeg";
+
+  audioElement.appendChild(sourceElement);
+  document.getElementById("audio").appendChild(audioElement);
 }
 
 function displayCards(deck) {
-	//Get all possible cards, filter to only display the ones we want
-	getImageList().then(imageList => {
-  const filteredList = imageList.filter(name => name.startsWith(deck));
-  console.log("cards filtered. List:" +filteredList);
+  //Get all possible cards, filter to only display the ones we want
+  getImageList().then(imageList => {
+    const filteredList = imageList.filter(name => name.startsWith(deck));
+    console.log("cards filtered. List:" +filteredList);
 
-  //For each card, create a button with that card image: 
-  filteredList.forEach(fileName =>{
-  	//Create an image for the card
-  	const card = document.createElement('img');
-  	//Set the image source 
-  	card.src = "img/"+fileName;
-  	//Apply card css class
-  	card.classList.add("card");
-  	//give the card an id
-  	cardId = fileName.replace(".png", "")
-  	card.id = cardId;
-  	//add audio on click
-  	card.addEventListener("click", function(){
-  		const audio = document.getElementById("audio1");
-  		audio.currentTime = 0;
-  		audio.play();
-  	})
-  	//add card to the site
-  	document.getElementById("cards").appendChild(card);
+    //For each card, create a button with that card image: 
+    filteredList.forEach(fileName =>{
+      //Create an image for the card
+      const card = document.createElement('img');
+      //Set the image source 
+      card.src = "img/"+fileName.replace(".png", "-thumb.png");
+      //Apply card css class
+      card.classList.add("card");
+      //give the card an id
+      const cardId = fileName.replace(".png", "")
+      card.id = cardId;
 
-  })
-  
-});
+      //Create audio element for the card
+      addSound(cardId);
+
+      //Connect card to card's corresponding audio 
+      card.addEventListener("click", function(){
+        const audio = document.getElementById("sound"+cardId);
+        audio.currentTime = 0;
+        audio.play();
+      })
+
+      //add card to the site
+      document.getElementById("cards").appendChild(card);
+    })  
+  });
 }
 
 const deckButtons = document.querySelectorAll('.deck_button');
