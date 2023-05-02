@@ -73,7 +73,7 @@ function displayCards(deck) {
       //Create an image for the card
       const card = document.createElement('img');
       //Set the image source 
-      card.src = "img/"+fileName.replace(".png", "-thumb.png");
+      card.src = "img/"+fileName;
       //Apply card css class
       card.classList.add("card");
       //give the card an id
