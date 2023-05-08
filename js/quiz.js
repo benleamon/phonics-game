@@ -30,33 +30,25 @@ goButton.addEventListener("click", function(){
                 allCards.push(filtered[j])
             }
         }
+        //Hide the startup buttons/text
 
-        console.log("all cards: " +allCards)
-        //Note: the spread operator will create a copy or the array. 
-        const questionPool = [...allCards];
-        console.log("question pool:")
-        console.log(questionPool)
+        //Create a question: 
+        writeQuestion(allCards);
 
-        questionIndex = randomNumber(questionPool.length)
-        const questionCard = questionPool[questionIndex]
-        console.log("Answer to this question:" + questionCard)
-        questionPool.splice(questionIndex, 1)
+        //Display the audio 
 
-        //Create a list of possible answers
-        possibleAnswers = []
-        for (let i = 0; i< 3; i++){
-        	const answerIndex = randomNumber(questionPool.length)
-        	//Check here to make sure that this index isn't already in the set of possible answers. 
-        	const answerCard = questionPool[answerIndex]
-        	possibleAnswers.push(answerCard)
-        }
-        //Insert the correct answer at a random index in the list of possible answers
-        const insertAnswerIndex = randomNumber(possibleAnswers.length + 1)
-        possibleAnswers.splice(insertAnswerIndex, 0, questionCard)
+        //Display the answers 
 
-        console.log("possible answers: ")
-        console.log(possibleAnswers)
-        //Move all of that into a function (might be good to have a function called getQuestion with a param for if we want it to come from all questions -- for possible answers, or from possibleQuestions -- for the question.)
+        //Check input 
+
+        //React to the user input 
+
+        //Display the next button 
+
+        //Iterate the question counter or desplay the cert (likely this will be some kind of loop with a flag)
+
+        //Display the cert 
+    
     });
 })
 
@@ -105,6 +97,59 @@ function getPossibleQuestions (okDecks) {
 
 function randomNumber (n) {
 	const randomNumber = Math.floor(Math.random() * n);
-	console.log("RandomNumber Return is: " + randomNumber)
 	return randomNumber
 }
+
+function getCorrectAnswer(questionPool){
+  questionIndex = randomNumber(questionPool.length)
+  const questionCard = questionPool[questionIndex]
+  questionPool.splice(questionIndex, 1)
+  return questionCard;
+}
+
+function getPossibleAnswers (questionPool){
+  //List of possible answers
+  possibleAnswers = []
+  //Get the incorrect answers 
+  for (let i = 0; i< 3; i++){
+    let answerIndex;
+    //Make sure there are no duplicate answers
+    do {
+      answerIndex = randomNumber(questionPool.length);
+    } while (possibleAnswers.includes(answerIndex));
+    const answerCard = questionPool[answerIndex]
+    possibleAnswers.push(answerCard)
+  }
+  return possibleAnswers;
+}
+
+function writeQuestion (cards){
+  // Make a copy of all the cards we could write questions for.
+  //Note: the spread operator will create a copy or the array. 
+  const questionPool = [...cards];
+
+  //Get the correct answer
+  const correctAnswer = getCorrectAnswer(questionPool);
+  console.log("Correct Answer:")
+  console.log(correctAnswer);
+
+  //I think we need to find a way to also filter out identical sounds. Maybe make some kind of array of duplicate sounds? 
+  //Filter questionPool again based on duplicate sounds. 
+  //Likely we'll need to make a dictionary of duplicates 
+  //First check if the correct answer is a key in the dictionary
+  //then if it is purge all the values from the question pool. 
+
+  //Get the incorrect answers 
+  const wrongAnswers = getPossibleAnswers(questionPool)
+  console.log("Wrong Answers: ")
+  console.log(wrongAnswers)
+
+
+  //Insert the correct answer at a random index in the list of possible answers
+  const insertAnswerIndex = randomNumber(wrongAnswers.length + 1)
+  wrongAnswers.splice(insertAnswerIndex, 0, correctAnswer)
+
+  console.log("All Answers: ")
+  console.log(wrongAnswers)
+}
+        
