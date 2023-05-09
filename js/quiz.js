@@ -158,8 +158,6 @@ function writeQuestion (cards){
 
   //Get the correct answer
   const correctAnswer = getCorrectAnswer(questionPool);
-  //console.log("Correct Answer:")
-  //console.log(correctAnswer);
 
   //I think we need to find a way to also filter out identical sounds. Maybe make some kind of array of duplicate sounds? 
   //Filter questionPool again based on duplicate sounds. 
@@ -169,16 +167,10 @@ function writeQuestion (cards){
 
   //Get the incorrect answers 
   const wrongAnswers = getPossibleAnswers(questionPool)
-  //console.log("Wrong Answers: ")
-  //console.log(wrongAnswers)
-
 
   //Insert the correct answer at a random index in the list of possible answers
   const insertAnswerIndex = randomNumber(wrongAnswers.length + 1)
   wrongAnswers.splice(insertAnswerIndex, 0, correctAnswer)
-
-  //console.log("All Answers: ")
-  //console.log(wrongAnswers)
 
   const question = {
     correctAnswerImage: correctAnswer,
