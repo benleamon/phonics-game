@@ -31,19 +31,47 @@ goButton.addEventListener("click", function(){
             }
         }
         //Hide the startup buttons/text
+        hideIntro();
 
         //Create a question: 
-        writeQuestion(allCards);
+        let question = writeQuestion(allCards);
+        console.log(question)
+        
+        //Create audio element 
+        addSound(question.correctAnswerId)
+        
+        //Display the audio button
+        const playButton = document.getElementById("question-sound")
+        playButton.classList.toggle("hidden")
+        
+        //Connect the audio button to the correct answer's audio
+        playButton.addEventListener("click", function(){
+          const audio = document.getElementById("sound"+question.correctAnswerId);
+          audio.currentTime = 0;
+          audio.play();
+        })
 
-        //Display the audio 
+        //Display the answers
+        displayAnswers(question.allAnswerImages)
+        
+        //React to the user input
+        let answers = document.querySelectorAll('.answer')
+        answers.forEach((answer) => {
+          answer.addEventListener('click', function(){
+            console.log("you clicked" + answer.id)
+            if (answer.id == question.correctAnswerId) {
+              //Correct andswer sequence 
+              console.log("YAY!")
 
-        //Display the answers 
+              //Next question function here
+            } else {
+              //Incorrect answer sequence
+              console.log("nope")
 
-        //Check input 
-
-        //React to the user input 
-
-        //Display the next button 
+              //Next question function here 
+            }
+          })  
+        }) 
 
         //Iterate the question counter or desplay the cert (likely this will be some kind of loop with a flag)
 
@@ -130,8 +158,8 @@ function writeQuestion (cards){
 
   //Get the correct answer
   const correctAnswer = getCorrectAnswer(questionPool);
-  console.log("Correct Answer:")
-  console.log(correctAnswer);
+  //console.log("Correct Answer:")
+  //console.log(correctAnswer);
 
   //I think we need to find a way to also filter out identical sounds. Maybe make some kind of array of duplicate sounds? 
   //Filter questionPool again based on duplicate sounds. 
@@ -141,15 +169,63 @@ function writeQuestion (cards){
 
   //Get the incorrect answers 
   const wrongAnswers = getPossibleAnswers(questionPool)
-  console.log("Wrong Answers: ")
-  console.log(wrongAnswers)
+  //console.log("Wrong Answers: ")
+  //console.log(wrongAnswers)
 
 
   //Insert the correct answer at a random index in the list of possible answers
   const insertAnswerIndex = randomNumber(wrongAnswers.length + 1)
   wrongAnswers.splice(insertAnswerIndex, 0, correctAnswer)
 
-  console.log("All Answers: ")
-  console.log(wrongAnswers)
+  //console.log("All Answers: ")
+  //console.log(wrongAnswers)
+
+  const question = {
+    correctAnswerImage: correctAnswer,
+    correctAnswerAudio: correctAnswer.replace(".png", ".mp3"),
+    correctAnswerId: correctAnswer.replace(".png", ""),
+    allAnswerImages: wrongAnswers
+  }
+
+  return question;
 }
-        
+
+function hideIntro(){
+  const elements = document.querySelectorAll(".intro")
+  elements.forEach((element) => {
+    element.classList.toggle("hidden")
+    console.log("toggled")
+  })
+}
+
+function addSound(cardId){
+  //Create audio element 
+  const audioElement = document.createElement("audio")
+  audioElement.id= "sound"+cardId;
+  audioElement.preload = "auto";
+
+  //Create source 
+  const sourceElement = document.createElement("source");
+  sourceElement.src = "audio/" + cardId + ".mp3";
+  sourceElement.type = "audio/mpeg";
+
+  audioElement.appendChild(sourceElement);
+  document.getElementById("audio").appendChild(audioElement);
+}
+
+function displayAnswers(answers){
+  answers.forEach(fileName =>{
+    //Create an image for the card
+    const card = document.createElement('img');
+    //Set the image source 
+    card.src = "img/"+fileName;
+    //Apply card css class
+    card.classList.add("answer");
+    //give the card an id
+    const cardId = fileName.replace(".png", "")
+    card.id = cardId;
+
+    // add the answer to the site
+    document.getElementById("answers").appendChild(card)
+  })
+}; 

@@ -5,3 +5,8 @@
 .selectedDeck{
 	opacity: 1;
 }
+
+.intro{
+	grid-column: 2;
+	justify-self: center;
+}
