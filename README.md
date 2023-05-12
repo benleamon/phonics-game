@@ -8,3 +8,4 @@ The phonics cards used on this site were made by Andrew Cletheroe, and he retain
 1. Move new images into the image-staging folder. Run image-sizer.sh
 2. Move the images in image-staging to full-res-images to retain. 
 3. Run file-lister.sh. 
+4. Add a button to the homepage.
