@@ -49,7 +49,10 @@ h1{
 	justify-self: center;
 	grid-column: 2;
 }
-
+.about_button{
+	text-decoration: none;
+	background-color: #1F4788;
+}
 svg{
 	height: 60%;
 	width: 60%;
