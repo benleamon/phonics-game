@@ -1,0 +1,8 @@
+body {
+  display: grid;
+  grid-template-columns: 1rem 1fr 1rem;
+}
+
+h1 h2 p {
+  grid-column: 2;
+}
