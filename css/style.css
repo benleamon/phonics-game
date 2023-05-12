@@ -16,7 +16,7 @@ h1{
 	grid-column: 2;
 	justify-self: center;
 }
-.deck_button {
+.deck_button , .about_button{
 	display: inline-block;
 	margin:.5rem;
 	padding: 1rem 2rem;
@@ -27,7 +27,6 @@ h1{
 	font-weight: bold;
 	color: #fff;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-
 }
 
 #deck2 {
@@ -44,6 +43,11 @@ h1{
 }
 #decks{
 	background-color: red;
+}
+
+.about{
+	justify-self: center;
+	grid-column: 2;
 }
 
 svg{
