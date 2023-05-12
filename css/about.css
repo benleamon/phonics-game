@@ -1,6 +1,6 @@
 body {
   display: grid;
-  grid-template-columns: 1rem minmax(0, 70ch) 1rem;
+  grid-template-columns: minmax(1rem, 1fr) minmax(0, 70ch) minmax(1rem, 1fr);
 }
 
 h1, p, h2 {
