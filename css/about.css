@@ -3,6 +3,8 @@ body {
   grid-template-columns: 1rem 1fr 1rem;
 }
 
-h1 h2 p {
+h1, p, h2 {
   grid-column: 2;
+  justify-self: center;
+  font-family: 'Comic Neue', cursive;
 }
