@@ -164,6 +164,24 @@ function writeQuestion (cards){
   //Likely we'll need to make a dictionary of duplicates 
   //First check if the correct answer is a key in the dictionary
   //then if it is purge all the values from the question pool. 
+  
+  // All the phonics cards that have duplicate sounds (Note: you'll need to update this if you add more!)
+  const duplicates = [
+    ['s','2-00','2-22'],
+    ['k','2-10','2-11','2-12'],
+    ['r', '2-15', '5-10']
+  ];
+
+  // Get the group (if it exists) containing the duplicate phonemes
+  let selectedGroup;
+  for (const group of duplicates) {
+    if (group.includes(correctAnswer.replace('.png', ''))) {
+      selectedGroup = group;
+      break
+    }
+  }
+
+  // Now remove all the items of selected group from the questionPool. 
 
   //Get the incorrect answers 
   const wrongAnswers = getPossibleAnswers(questionPool)
