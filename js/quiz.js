@@ -154,10 +154,10 @@ function getPossibleAnswers (questionPool){
 function writeQuestion (cards){
   // Make a copy of all the cards we could write questions for.
   //Note: the spread operator will create a copy or the array. 
-  const questionPool = [...cards];
+  let questionPool = [...cards];
 
   //Get the correct answer
-  const correctAnswer = getCorrectAnswer(questionPool);
+  let correctAnswer = getCorrectAnswer(questionPool);
 
   //I think we need to find a way to also filter out identical sounds. Maybe make some kind of array of duplicate sounds? 
   //Filter questionPool again based on duplicate sounds. 
@@ -169,7 +169,23 @@ function writeQuestion (cards){
   const duplicates = [
     ['s','2-00','2-22'],
     ['k','2-10','2-11','2-12'],
-    ['r', '2-15', '5-10']
+    ['r', '2-15', '5-10'],
+    ["f", "2-18", "5-11"],
+    ["l", "2-20", "2-21"],
+    ["w", "3-02", "5-09"],
+    ["z", "3-05", "3-06", "3-07"],
+    ["ai", "3-14", "5-00", "5-17"],
+    ["ee", "3-15", "5-03", "5-16", "5-18"],
+    ["igh", "3-16", "5-02", "5-19"],
+    ["e-hi", "3-17", "5-14", "5-20"],
+    ["u", "3-18", "5-06", "5-12", "5-21"],
+    ["up-e", "3-21", "5-08", "5-15"],
+    ["3", "3-22", "5-05"],
+    ["a-hi", "3-23", "5-01"],
+    ["bac-c", "3-24", "5-04"],
+    ["st", "4-00", "4-24"],
+    ["sk", "4-28", "4-29"],
+    ["ju", "5-07", "5-13", "5-22"]
   ];
 
   // Get the group (if it exists) containing the duplicate phonemes
@@ -182,6 +198,15 @@ function writeQuestion (cards){
   }
 
   // Now remove all the items of selected group from the questionPool. 
+  if (selectedGroup) {
+    //Add png to all the selected group elements because I was stupid when I desigend the original list.
+    selectedGroup = selectedGroup.map(item => item + ".png")
+    questionPool = questionPool.filter( item => !selectedGroup.includes(item))
+    console.log("Removed Duplicate sounds: ")
+    console.log(selectedGroup)
+  }
+
+  console.log(questionPool)
 
   //Get the incorrect answers 
   const wrongAnswers = getPossibleAnswers(questionPool)
