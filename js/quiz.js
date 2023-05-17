@@ -44,9 +44,9 @@ goButton.addEventListener("click", function(){
         //Hide the startup buttons/text
         hideIntro();
 
-        //This is where we need to start the loop 
+        //Run through all questions in the quiz
         for (let i = 0; i < userScore.quizLength; i++){
-          
+          //loop stuff goes here
         }
 
         //Create a question: 
@@ -78,12 +78,12 @@ goButton.addEventListener("click", function(){
             if (answer.id == question.correctAnswerId) {
               //Correct andswer sequence 
               console.log("YAY!")
-
+              removeOldQuestion();
               //Next question function here
             } else {
               //Incorrect answer sequence
               console.log("nope")
-
+              removeOldQuestion();
               //Next question function here 
             }
           })  
@@ -292,4 +292,11 @@ function displayAnswers(answers){
     // add the answer to the site
     document.getElementById("answers").appendChild(card)
   })
-}; 
+};
+
+function removeOldQuestion(){
+  let elements = document.querySelectorAll(".answer")
+  elements.forEach((element) => {
+    element.remove();
+  })
+} 
