@@ -1,6 +1,17 @@
 // Variable holding all the decks the user wants to be quizzed on.
 let okDecks = [];
 
+// Create object for score and user data: 
+let userScore = {
+  date : todaysDate(),
+  quizLength : 10,
+  score : 0,
+  questionNumber : 0,
+  questions : [],
+  missedQuestions : []
+}
+console.log(userScore)
+
 // Let the user choose what decks they want to practice 
 const deckChoices=document.querySelectorAll(".deck_button")
 deckChoices.forEach((deck) => {
@@ -32,6 +43,11 @@ goButton.addEventListener("click", function(){
         }
         //Hide the startup buttons/text
         hideIntro();
+
+        //This is where we need to start the loop 
+        for (let i = 0; i < userScore.quizLength; i++){
+          
+        }
 
         //Create a question: 
         let question = writeQuestion(allCards);
@@ -153,18 +169,22 @@ function getPossibleAnswers (questionPool){
 
 function writeQuestion (cards){
   // Make a copy of all the cards we could write questions for.
-  //Note: the spread operator will create a copy or the array. 
+  //Note: the spread operator will create a copy or the array.
   let questionPool = [...cards];
+
+  //We will likely need to filter out old questions from question pool to prevent duplicate questions.  
 
   //Get the correct answer
   let correctAnswer = getCorrectAnswer(questionPool);
-
-  //I think we need to find a way to also filter out identical sounds. Maybe make some kind of array of duplicate sounds? 
-  //Filter questionPool again based on duplicate sounds. 
-  //Likely we'll need to make a dictionary of duplicates 
-  //First check if the correct answer is a key in the dictionary
-  //then if it is purge all the values from the question pool. 
   
+  // Log the question in user data 
+  userScore.questions.push(correctAnswer);
+
+  // Increment question number 
+  userScore.questionNumber++;
+  console.log("Beginning question: "+ userScore.questionNumber)
+  console.log(userScore)
+
   // All the phonics cards that have duplicate sounds (Note: you'll need to update this if you add more!)
   const duplicates = [
     ['s','2-00','2-22'],
@@ -231,6 +251,15 @@ function hideIntro(){
     element.classList.toggle("hidden")
     console.log("toggled")
   })
+}
+
+function todaysDate(){
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const year = today.getFullYear();
+  const formattedDate = day + '/' + month + '/' + year;
+  return formattedDate;
 }
 
 function addSound(cardId){
