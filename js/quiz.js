@@ -4,7 +4,7 @@ let okDecks = [];
 // Create object for score and user data: 
 let userScore = {
   date : todaysDate(),
-  quizLength : 10,
+  quizLength : 3,
   score : 0,
   questionNumber : 0,
   questions : [],
@@ -45,47 +45,62 @@ goButton.addEventListener("click", function(){
         hideIntro();
 
         //Run through all questions in the quiz
-        
+        function startQuiz(){
+          if (userScore.questionNumber < userScore.quizLength){
+            //Create a question: 
+            let question = writeQuestion(allCards);
+            console.log(question)
+            
+            //Create audio element 
+            addSound(question.correctAnswerId)
 
-        //Create a question: 
-        let question = writeQuestion(allCards);
-        console.log(question)
-        
-        //Create audio element 
-        addSound(question.correctAnswerId)
-        
-        //Display the audio button
-        const playButton = document.getElementById("question-sound")
-        playButton.classList.toggle("hidden")
-        
-        //Connect the audio button to the correct answer's audio
-        playButton.addEventListener("click", function(){
-          const audio = document.getElementById("sound"+question.correctAnswerId);
-          audio.currentTime = 0;
-          audio.play();
-        })
+            //Display the audio button
+            const playButton = document.getElementById("question-sound")
+            playButton.classList.toggle("hidden")
+            
+            //Connect the audio button to the correct answer's audio
+            playButton.addEventListener("click", function(){
+              const audio = document.getElementById("sound"+question.correctAnswerId);
+              audio.currentTime = 0;
+              audio.play();
+            })
 
-        //Display the answers
-        displayAnswers(question.allAnswerImages)
-        
-        //React to the user input
-        let answers = document.querySelectorAll('.answer')
-        answers.forEach((answer) => {
-          answer.addEventListener('click', function(){
-            console.log("you clicked" + answer.id)
-            if (answer.id == question.correctAnswerId) {
-              //Correct andswer sequence 
-              console.log("YAY!")
-              removeOldQuestion();
-              //Next question function here
-            } else {
-              //Incorrect answer sequence
-              console.log("nope")
-              removeOldQuestion();
-              //Next question function here 
-            }
-          })  
-        }) 
+            //Display the answers
+            displayAnswers(question.allAnswerImages)
+
+            //React to the user input
+            let answers = document.querySelectorAll('.answer')
+            answers.forEach((answer) => {
+              answer.addEventListener('click', function(){
+                console.log("you clicked" + answer.id)
+                if (answer.id == question.correctAnswerId) {
+                  //Correct andswer sequence 
+                  console.log("YAY!")
+                } else {
+                  //Incorrect answer sequence
+                  console.log("nope")
+                }
+                
+                //Remove the current question: 
+                removeOldQuestion();
+
+                //Write the next question
+                startQuiz();
+              })  
+            }) 
+
+
+
+
+          } else {
+            //Quiz is finished 
+            console.log("Quiz is finished!")
+          }
+        }
+
+        //Start the quiz
+        startQuiz();
+
 
         //Iterate the question counter or desplay the cert (likely this will be some kind of loop with a flag)
 
