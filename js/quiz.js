@@ -267,6 +267,7 @@ function addSound(cardId){
   const audioElement = document.createElement("audio")
   audioElement.id= "sound"+cardId;
   audioElement.preload = "auto";
+  //audioElement.classList = "question"
 
   //Create source 
   const sourceElement = document.createElement("source");
@@ -295,7 +296,16 @@ function displayAnswers(answers){
 };
 
 function removeOldQuestion(){
+  //Remove the answer cards 
   let elements = document.querySelectorAll(".answer")
+  elements.forEach((element) => {
+    element.remove();
+  })
+  //Hide the audio button
+  let element = document.getElementById("question-sound")
+  element.classList.toggle("hidden");
+  //Remove the audio elements 
+  elements = document.querySelectorAll("audio")
   elements.forEach((element) => {
     element.remove();
   })
