@@ -55,15 +55,15 @@ goButton.addEventListener("click", function(){
             addSound(question.correctAnswerId)
 
             //Display the audio button
-            const playButton = document.getElementById("question-sound")
-            playButton.classList.toggle("hidden")
+            // const playButton = document.getElementById("question-sound")
+            // playButton.classList.toggle("hidden")
             
             //Connect the audio button to the correct answer's audio
-            playButton.addEventListener("click", function(){
-              const audio = document.getElementById("sound"+question.correctAnswerId);
-              audio.currentTime = 0;
-              audio.play();
-            })
+            // playButton.addEventListener("click", function(){
+            //   const audio = document.getElementById("sound"+question.correctAnswerId);
+            //   audio.currentTime = 0;
+            //   audio.play();
+            // })
 
             //Display the answers
             displayAnswers(question.allAnswerImages)
@@ -80,7 +80,7 @@ goButton.addEventListener("click", function(){
                   //Incorrect answer sequence
                   console.log("nope")
                 }
-                
+
                 //Remove the current question: 
                 removeOldQuestion();
 
@@ -289,6 +289,15 @@ function addSound(cardId){
 
   audioElement.appendChild(sourceElement);
   document.getElementById("audio").appendChild(audioElement);
+
+  const playButton = document.getElementById("question-sound");
+  playButton.classList.remove("hidden"); // Remove the "hidden" class to display the button
+
+  playButton.addEventListener("click", function() {
+    const audio = document.getElementById("sound" + cardId);
+    audio.currentTime = 0;
+    audio.play();
+  });
 }
 
 function displayAnswers(answers){
@@ -308,18 +317,30 @@ function displayAnswers(answers){
   })
 };
 
-function removeOldQuestion(){
-  //Remove the answer cards 
-  let elements = document.querySelectorAll(".answer")
+
+function removeOldQuestion() {
+  // Remove the answer cards
+  const elements = document.querySelectorAll(".answer");
   elements.forEach((element) => {
     element.remove();
-  })
-  //Hide the audio button
-  let element = document.getElementById("question-sound")
-  element.classList.toggle("hidden");
-  //Remove the audio elements 
-  elements = document.querySelectorAll("audio")
-  elements.forEach((element) => {
-    element.remove();
-  })
-} 
+  });
+
+  // Hide the audio button
+  const playButton = document.getElementById("question-sound");
+  playButton.classList.add("hidden");
+
+  // Remove the audio elements and event listeners
+  const audioElements = document.querySelectorAll("audio");
+  audioElements.forEach((audioElement) => {
+    const cardId = audioElement.id.replace("sound", "");
+    const clonedAudioElement = audioElement.cloneNode(true); // Create a clone of the audio element
+    const parentElement = audioElement.parentNode;
+
+    // Remove the original audio element from the DOM
+    parentElement.removeChild(audioElement);
+
+    // Replace the audio element with the cloned audio element
+    parentElement.appendChild(clonedAudioElement);
+  });
+}
+
