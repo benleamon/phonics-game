@@ -45,9 +45,7 @@ goButton.addEventListener("click", function(){
         hideIntro();
 
         //Run through all questions in the quiz
-        for (let i = 0; i < userScore.quizLength; i++){
-          //loop stuff goes here
-        }
+        
 
         //Create a question: 
         let question = writeQuestion(allCards);
