@@ -75,37 +75,24 @@ goButton.addEventListener("click", function(){
                 console.log("you clicked" + answer.id)
                 if (answer.id == question.correctAnswerId) {
                   //Correct andswer sequence 
-                  console.log("YAY!")
+                  rightAnswer();
                 } else {
                   //Incorrect answer sequence
-                  console.log("nope")
+                  wrongAnswer();
                 }
-
                 //Remove the current question: 
                 removeOldQuestion(question.correctAnswerId);
-
                 //Write the next question
                 startQuiz();
               })  
             }) 
-
-
-
-
           } else {
             //Quiz is finished 
             console.log("Quiz is finished!")
           }
         }
-
         //Start the quiz
         startQuiz();
-
-
-        //Iterate the question counter or desplay the cert (likely this will be some kind of loop with a flag)
-
-        //Display the cert 
-    
     });
 })
 
@@ -285,6 +272,7 @@ function addSound(cardId){
   //Create audio element 
   const audioElement = document.createElement("audio")
   audioElement.id= "sound"+cardId;
+  audioElement.classList.add("question-audio");
   audioElement.preload = "auto";
   //audioElement.classList = "question"
 
@@ -304,31 +292,6 @@ function addSound(cardId){
   });
 }
 
-// function addSound(cardId){
-//   //Create audio element 
-//   const audioElement = document.createElement("audio")
-//   audioElement.id= "sound"+cardId;
-//   audioElement.preload = "auto";
-//   //audioElement.classList = "question"
-
-//   //Create source 
-//   const sourceElement = document.createElement("source");
-//   sourceElement.src = "audio/" + cardId + ".mp3";
-//   sourceElement.type = "audio/mpeg";
-
-//   audioElement.appendChild(sourceElement);
-//   document.getElementById("audio").appendChild(audioElement);
-
-//   const playButton = document.getElementById("question-sound");
-//   playButton.classList.remove("hidden"); // Remove the "hidden" class to display the button
-
-//   playButton.addEventListener("click", function() {
-//     const audio = document.getElementById("sound" + cardId);
-//     audio.currentTime = 0;
-//     audio.play();
-//   });
-// }
-
 function displayAnswers(answers){
   answers.forEach(fileName =>{
     //Create an image for the card
@@ -346,28 +309,6 @@ function displayAnswers(answers){
   })
 };
 
-// function removeOldQuestion(cardId){
-//   console.log("card ID" + cardId)
-//   //Remove the answer cards 
-//   let elements = document.querySelectorAll(".answer")
-//   elements.forEach((element) => {
-//     element.remove();
-//   })
-//   //Hide the audio button
-//   let element = document.getElementById("question-sound")
-//   element.classList.toggle("hidden");
-//   //Remove the audio elements 
-//   elements = document.querySelectorAll("audio")
-//   elements.forEach((element) => {
-//     element.removeEventListener("click", function() {
-//       const audio = document.getElementById("sound" + cardId);
-//       audio.currentTime = 0;
-//       audio.play();
-//     });
-//     element.remove();
-//   })
-// } 
-
 function removeOldQuestion(cardId){
   console.log("card ID" + cardId)
   //Remove the answer cards 
@@ -379,38 +320,25 @@ function removeOldQuestion(cardId){
   let element = document.getElementById("question-sound")
   element.classList.toggle("hidden");
   //Remove the audio elements 
-  elements = document.querySelectorAll("audio")
+  elements = document.querySelectorAll(".question-audio")
   elements.forEach((element) => {
     element.removeEventListener("click", function(){
       audioClickHandler(cardId)
     });
     element.remove();
   })
+}
+
+function rightAnswer () {
+  console.log("YAY!")
+  const sound = document.getElementById("correct-audio")
+  sound.currentTime = 0;
+  sound.play();
 } 
 
-// function removeOldQuestion() {
-//   // Remove the answer cards
-//   const elements = document.querySelectorAll(".answer");
-//   elements.forEach((element) => {
-//     element.remove();
-//   });
-
-//   // Hide the audio button
-//   const playButton = document.getElementById("question-sound");
-//   playButton.classList.add("hidden");
-
-//   // Remove the audio elements and event listeners
-//   const audioElements = document.querySelectorAll("audio");
-//   audioElements.forEach((audioElement) => {
-//     const cardId = audioElement.id.replace("sound", "");
-//     const clonedAudioElement = audioElement.cloneNode(true); // Create a clone of the audio element
-//     const parentElement = audioElement.parentNode;
-
-//     // Remove the original audio element from the DOM
-//     parentElement.removeChild(audioElement);
-
-//     // Replace the audio element with the cloned audio element
-//     parentElement.appendChild(clonedAudioElement);
-//   });
-// }
-
+function wrongAnswer () {
+  console.log("nope")
+  const sound = document.getElementById("incorrect-audio")
+  sound.currentTime = 0;
+  sound.play();
+}

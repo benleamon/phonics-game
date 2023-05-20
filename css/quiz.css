@@ -1,3 +1,4 @@
+/* Intro CSS */
 .deck_button{
 	opacity: 0.6;
 }
@@ -9,4 +10,37 @@
 .intro{
 	grid-column: 2;
 	justify-self: center;
+}
+
+.back-button{
+	height:auto;
+}
+svg{
+	height: auto;
+	margin: 1rem;
+}
+
+/* Question CSS */
+#question{
+	display: grid;
+}
+
+#question-sound{
+	justify-self: center;
+	align-self: center;
+}
+
+#answers{
+	display:grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: .25rem;
+}
+
+.answer{
+	width: 100%;
+	height: auto;
+/*	margin:.1rem;*/
+/*	border: 2px solid gray;*/
+/*  opacity: 0.8;*/
+/*  transition: transform 0.2s, opacity 0.2s, background-color 0.2s;*/
 }
