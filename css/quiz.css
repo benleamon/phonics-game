@@ -57,3 +57,22 @@ svg{
 .next-question{
 	grid-column: 1
 }
+
+#cert{
+	grid-column: 2;
+}
+
+.visibleCert{
+	display: grid;
+	justify-items: center;
+}
+
+#stars{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.star{
+	width:4rem;
+}

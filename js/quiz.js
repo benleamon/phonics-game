@@ -4,7 +4,8 @@ let okDecks = [];
 // Create object for score and user data: 
 let userScore = {
   date : todaysDate(),
-  quizLength : 10,
+  quizLength : 1,
+  phases:[],
   score : 0,
   questionNumber : 0,
   questions : [],
@@ -26,10 +27,18 @@ deckChoices.forEach((deck) => {
 //Start the quiz
 const goButton = document.getElementById("startQuiz")
 goButton.addEventListener("click", function(){
+
+    //First check if the user has selected any decks
+    let elements = document.querySelectorAll(".selectedDeck")
+    if (elements.length < 1){
+      return
+    };
+
     //Add all the currently selected decks to the array of decks to draw cards from
     selectedDecks = document.querySelectorAll(".selectedDeck");
     selectedDecks.forEach((deck) => {
-        okDecks.push(deck.id.replace("deck",""))
+        okDecks.push(deck.id.replace("deck",""));
+        userScore.phases.push(deck.id.replace("deck",""));
     })
 
     getImageList().then((cards) => {
@@ -57,17 +66,6 @@ goButton.addEventListener("click", function(){
             
             //Create audio element 
             addSound(question.correctAnswerId)
-
-            //Display the audio button
-            // const playButton = document.getElementById("question-sound")
-            // playButton.classList.toggle("hidden")
-            
-            //Connect the audio button to the correct answer's audio
-            // playButton.addEventListener("click", function(){
-            //   const audio = document.getElementById("sound"+question.correctAnswerId);
-            //   audio.currentTime = 0;
-            //   audio.play();
-            // })
 
             //Display the answers
             displayAnswers(question.allAnswerImages)
@@ -116,6 +114,7 @@ goButton.addEventListener("click", function(){
           } else {
             //Quiz is finished 
             console.log("Quiz is finished!")
+            displayCert();
           }
         }
         //Start the quiz
@@ -365,6 +364,8 @@ function rightAnswer () {
   const sound = document.getElementById("correct-audio")
   sound.currentTime = 0;
   sound.play();
+  //Update score
+  userScore.score++;
 } 
 
 function wrongAnswer () {
@@ -373,6 +374,8 @@ function wrongAnswer () {
   const sound = document.getElementById("incorrect-audio")
   sound.currentTime = 0;
   sound.play();
+  //append missed question to user.score
+  userScore.missedQuestions.push(question.correctAnswerId)
 }
 
 function highlightCorrectAnswer (answer){
@@ -385,5 +388,86 @@ function highlightCorrectAnswer (answer){
     }
   })
 }
+
+function displayCert() {
+  const cert = document.getElementById("cert");
+  cert.classList.toggle("hidden");
+  cert.classList.toggle("visibleCert");
+
+  // Add date, phases
+  let string = "";
+  for (let i = 0; i < userScore.phases.length; i++) {
+    string = string + "Phase " + userScore.phases[i] + " ";
+  }
+  let element = document.createElement("p");
+  element.textContent = string;
+  const info = document.getElementById("info")
+  info.appendChild(element);
+  element.textContent = "Let's practice these ones again!"
+  info.appendChild(element)
+
+  // Add vanity stars
+  if (userScore.score == 0) {
+    //Display consolation prize
+    let container = document.getElementById("stars");
+    const star = document.createElement("img");
+    star.src = "./img/consolation-star.png";
+    star.classList.add("star");
+    container.appendChild(star)
+  } else {
+    //console.log(userScore);
+    for (let i = 0; i < userScore.score; i++) {
+      // Add stars
+      let container = document.getElementById("stars");
+      const star = document.createElement("img");
+      star.src = "./img/star.png";
+      star.classList.add("star");
+      container.appendChild(star);
+    }
+  }
+  
+
+  // Add Missed cards
+  const missedContainer = document.getElementById("missed");
+  userScore.missedQuestions.forEach((fileName) => {
+    // Create an image for the card
+    const card = document.createElement("img");
+    // Set the image source
+    card.src = "img/" + fileName + ".png";
+    // Apply card css class
+    card.classList.add("card");
+    // give the card an id
+    const cardId = fileName;
+    card.id = cardId;
+
+    // Create audio element for the card
+    // Create audio element
+    const audioElement = document.createElement("audio");
+    audioElement.id = "sound" + cardId;
+    audioElement.preload = "auto";
+
+    // Create source
+    const sourceElement = document.createElement("source");
+    sourceElement.src = "audio/" + cardId + ".mp3";
+    sourceElement.type = "audio/mpeg";
+
+    audioElement.appendChild(sourceElement);
+    document.getElementById("audio").appendChild(audioElement);
+
+    // Connect card to card's corresponding audio
+    card.addEventListener("click", function () {
+      const audio = document.getElementById("sound" + cardId);
+      audio.currentTime = 0;
+      audio.play();
+    });
+
+    // add card to the site
+    missedContainer.appendChild(card);
+  });
+}
+
+
+
+
 
 
