@@ -76,14 +76,36 @@ goButton.addEventListener("click", function(){
                 if (answer.id == question.correctAnswerId) {
                   //Correct andswer sequence 
                   rightAnswer();
+                  //Highlight correct answer
+                  highlightCorrectAnswer(question.correctAnswerId)
                 } else {
                   //Incorrect answer sequence
                   wrongAnswer();
+                  //Highlight correct answer
+                  highlightCorrectAnswer(question.correctAnswerId)
                 }
-                //Remove the current question: 
-                removeOldQuestion(question.correctAnswerId);
-                //Write the next question
-                startQuiz();
+                //Create the next question button 
+                const nextButton = document.createElement("button");
+                nextButton.id = "nextQuestionButton";
+                nextButton.classList.add('next-question');
+                nextButton.textContent = "Next"
+
+                //Add the button to the screen  
+                container = document.getElementById("question");
+                container.appendChild(nextButton);
+
+                //Add on-click behavior 
+                nextButton.addEventListener('click', function(){
+                  //Remove the current question: 
+                  removeOldQuestion(question.correctAnswerId);
+                  //Write the next question
+                  startQuiz();
+                })
+
+                // //Remove the current question: 
+                // removeOldQuestion(question.correctAnswerId);
+                // //Write the next question
+                // startQuiz();
               })  
             }) 
           } else {
@@ -147,6 +169,7 @@ function randomNumber (n) {
 function getCorrectAnswer(questionPool){
   questionIndex = randomNumber(questionPool.length)
   const questionCard = questionPool[questionIndex]
+  //Remove the correct answer from the question pool.
   questionPool.splice(questionIndex, 1)
   return questionCard;
 }
@@ -311,6 +334,8 @@ function displayAnswers(answers){
 
 function removeOldQuestion(cardId){
   console.log("card ID" + cardId)
+  //Remove the next question button: 
+  document.getElementById("nextQuestionButton").remove();
   //Remove the answer cards 
   let elements = document.querySelectorAll(".answer")
   elements.forEach((element) => {
@@ -331,6 +356,7 @@ function removeOldQuestion(cardId){
 
 function rightAnswer () {
   console.log("YAY!")
+  //play celebratiory chime 
   const sound = document.getElementById("correct-audio")
   sound.currentTime = 0;
   sound.play();
@@ -338,7 +364,26 @@ function rightAnswer () {
 
 function wrongAnswer () {
   console.log("nope")
+  //Highlight the correct answer 
+  highlightCorrectAnswer(question.correctAnswerId)
+  //play fail sound
   const sound = document.getElementById("incorrect-audio")
   sound.currentTime = 0;
   sound.play();
 }
+
+function highlightCorrectAnswer (answer){
+  console.log("h" + answer)
+  let elements = document.querySelectorAll('.answer')
+  elements.forEach((element) => {
+    if (element.id == answer) {
+      //Highlight correct answer
+      console.log("leaving this one alone")
+    } else {
+      element.classList.toggle("incorrect")
+      console.log("element shaded")
+    }
+  })
+}
+
+

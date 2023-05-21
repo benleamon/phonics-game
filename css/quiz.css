@@ -23,6 +23,7 @@ svg{
 /* Question CSS */
 #question{
 	display: grid;
+	row-gap: 1rem;
 }
 
 #question-sound{
@@ -43,4 +44,16 @@ svg{
 /*	border: 2px solid gray;*/
 /*  opacity: 0.8;*/
 /*  transition: transform 0.2s, opacity 0.2s, background-color 0.2s;*/
+}
+
+/*.correct{
+	opacity:;
+}*/
+
+.incorrect{
+	opacity: .5;
+}
+
+.next-question{
+	grid-column: 1
 }
