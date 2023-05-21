@@ -12,6 +12,9 @@ let userScore = {
 }
 console.log(userScore)
 
+let question;
+let nextButton;
+
 // Let the user choose what decks they want to practice 
 const deckChoices=document.querySelectorAll(".deck_button")
 deckChoices.forEach((deck) => {
@@ -48,7 +51,8 @@ goButton.addEventListener("click", function(){
         function startQuiz(){
           if (userScore.questionNumber < userScore.quizLength){
             //Create a question: 
-            let question = writeQuestion(allCards);
+            question = writeQuestion(allCards);
+            console.log("question:")
             console.log(question)
             
             //Create audio element 
@@ -70,29 +74,34 @@ goButton.addEventListener("click", function(){
 
             //React to the user input
             let answers = document.querySelectorAll('.answer')
+            let flag = true;
             answers.forEach((answer) => {
               answer.addEventListener('click', function(){
-                console.log("you clicked" + answer.id)
-                if (answer.id == question.correctAnswerId) {
-                  //Correct andswer sequence 
-                  rightAnswer();
-                  //Highlight correct answer
-                  highlightCorrectAnswer(question.correctAnswerId)
-                } else {
-                  //Incorrect answer sequence
-                  wrongAnswer();
-                  //Highlight correct answer
-                  highlightCorrectAnswer(question.correctAnswerId)
-                }
-                //Create the next question button 
-                const nextButton = document.createElement("button");
-                nextButton.id = "nextQuestionButton";
-                nextButton.classList.add('next-question');
-                nextButton.textContent = "Next"
+                //Note: There's likely a better way to do this, I'm using this flag to stop the user beign able to click on any of the buttons more than once. 
+                if(flag){
+                  flag = false;
+                  console.log("you clicked" + answer.id)
+                  if (answer.id == question.correctAnswerId) {
+                    //Correct andswer sequence
+                    rightAnswer();
+                  } else {
+                    //Incorrect answer sequence
+                    wrongAnswer();
+                  }
 
-                //Add the button to the screen  
-                container = document.getElementById("question");
-                container.appendChild(nextButton);
+                  //Highlight the correct answer
+                  highlightCorrectAnswer(question.correctAnswerId)
+
+                  //Create the next question button 
+                  nextButton = document.createElement("button");
+                  nextButton.id = "nextQuestionButton";
+                  nextButton.classList.add('next-question');
+                  nextButton.textContent = "Next"
+
+                  //Add the button to the screen  
+                  container = document.getElementById("question");
+                  container.appendChild(nextButton);
+                }
 
                 //Add on-click behavior 
                 nextButton.addEventListener('click', function(){
@@ -102,10 +111,6 @@ goButton.addEventListener("click", function(){
                   startQuiz();
                 })
 
-                // //Remove the current question: 
-                // removeOldQuestion(question.correctAnswerId);
-                // //Write the next question
-                // startQuiz();
               })  
             }) 
           } else {
@@ -364,8 +369,6 @@ function rightAnswer () {
 
 function wrongAnswer () {
   console.log("nope")
-  //Highlight the correct answer 
-  highlightCorrectAnswer(question.correctAnswerId)
   //play fail sound
   const sound = document.getElementById("incorrect-audio")
   sound.currentTime = 0;
@@ -373,15 +376,12 @@ function wrongAnswer () {
 }
 
 function highlightCorrectAnswer (answer){
-  console.log("h" + answer)
-  let elements = document.querySelectorAll('.answer')
+  elements = document.querySelectorAll(".answer")
   elements.forEach((element) => {
-    if (element.id == answer) {
-      //Highlight correct answer
-      console.log("leaving this one alone")
-    } else {
-      element.classList.toggle("incorrect")
-      console.log("element shaded")
+    console.log(element.id)
+    if (element.id !== question.correctAnswerId){
+      element.classList.toggle("incorrect");
+      console.log(element.id + "is shaded.")
     }
   })
 }
