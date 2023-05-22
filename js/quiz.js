@@ -11,7 +11,6 @@ let userScore = {
   questions : [],
   missedQuestions : []
 }
-console.log(userScore)
 
 let question;
 let nextButton;
@@ -61,8 +60,6 @@ goButton.addEventListener("click", function(){
           if (userScore.questionNumber < userScore.quizLength){
             //Create a question: 
             question = writeQuestion(allCards);
-            console.log("question:")
-            console.log(question)
             
             //Create audio element 
             addSound(question.correctAnswerId)
@@ -78,7 +75,6 @@ goButton.addEventListener("click", function(){
                 //Note: There's likely a better way to do this, I'm using this flag to stop the user beign able to click on any of the buttons more than once. 
                 if(flag){
                   flag = false;
-                  console.log("you clicked" + answer.id)
                   if (answer.id == question.correctAnswerId) {
                     //Correct andswer sequence
                     rightAnswer();
@@ -113,7 +109,6 @@ goButton.addEventListener("click", function(){
             }) 
           } else {
             //Quiz is finished 
-            console.log("Quiz is finished!")
             displayCert();
           }
         }
@@ -141,7 +136,6 @@ function getImageList() {
           }
         }
       }
-      //console.log("File names: "+imageList) 
       return imageList;
     })
     // Handle errors
@@ -159,7 +153,6 @@ function getPossibleQuestions (okDecks) {
       	allCards.push(filtered[j])
       }
     }
-    //console.log("all cards: " +allCards)
     return allCards;
   });
   return allCards;
@@ -208,8 +201,6 @@ function writeQuestion (cards){
 
   // Increment question number 
   userScore.questionNumber++;
-  console.log("Beginning question: "+ userScore.questionNumber)
-  console.log(userScore)
 
   // All the phonics cards that have duplicate sounds (Note: you'll need to update this if you add more!)
   const duplicates = [
@@ -248,11 +239,7 @@ function writeQuestion (cards){
     //Add png to all the selected group elements because I was stupid when I desigend the original list.
     selectedGroup = selectedGroup.map(item => item + ".png")
     questionPool = questionPool.filter( item => !selectedGroup.includes(item))
-    console.log("Removed Duplicate sounds: ")
-    console.log(selectedGroup)
   }
-
-  console.log(questionPool)
 
   //Get the incorrect answers 
   const wrongAnswers = getPossibleAnswers(questionPool)
@@ -275,7 +262,6 @@ function hideIntro(){
   const elements = document.querySelectorAll(".intro")
   elements.forEach((element) => {
     element.classList.toggle("hidden")
-    console.log("toggled")
   })
 }
 
@@ -336,7 +322,6 @@ function displayAnswers(answers){
 };
 
 function removeOldQuestion(cardId){
-  console.log("card ID" + cardId)
   //Remove the next question button: 
   document.getElementById("nextQuestionButton").remove();
   //Remove the answer cards 
@@ -358,7 +343,6 @@ function removeOldQuestion(cardId){
 }
 
 function rightAnswer () {
-  console.log("YAY!")
   //play celebratiory chime 
   const sound = document.getElementById("correct-audio")
   sound.currentTime = 0;
@@ -368,7 +352,6 @@ function rightAnswer () {
 } 
 
 function wrongAnswer () {
-  console.log("nope")
   //play fail sound
   const sound = document.getElementById("incorrect-audio")
   sound.currentTime = 0;
@@ -380,10 +363,8 @@ function wrongAnswer () {
 function highlightCorrectAnswer (answer){
   elements = document.querySelectorAll(".answer")
   elements.forEach((element) => {
-    console.log(element.id)
     if (element.id !== question.correctAnswerId){
       element.classList.toggle("incorrect");
-      console.log(element.id + "is shaded.")
     }
   })
 }
@@ -414,7 +395,6 @@ function displayCert() {
     star.classList.add("star");
     container.appendChild(star)
   } else {
-    //console.log(userScore);
     for (let i = 0; i < userScore.score; i++) {
       // Add stars
       let container = document.getElementById("stars");
