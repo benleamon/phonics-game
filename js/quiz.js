@@ -4,7 +4,7 @@ let okDecks = [];
 // Create object for score and user data: 
 let userScore = {
   date : todaysDate(),
-  quizLength : 10,
+  quizLength : 1,
   phases:[],
   score : 0,
   questionNumber : 0,
@@ -14,17 +14,24 @@ let userScore = {
 
 let question;
 let nextButton;
+const goButton = document.getElementById("startQuiz");
+const deckChoices = document.querySelectorAll(".deck_button");
 
-// Let the user choose what decks they want to practice 
-const deckChoices=document.querySelectorAll(".deck_button")
 deckChoices.forEach((deck) => {
-	deck.addEventListener("click", function(){
-		deck.classList.toggle("selectedDeck")
-	})
-})
+  deck.addEventListener("click", function () {
+    deck.classList.toggle("selectedDeck");
+
+    const selectedDecks = document.querySelectorAll(".selectedDeck");
+    if (selectedDecks.length >= 1) {
+      goButton.classList.add("okToGo");
+    } else {
+      goButton.classList.remove("okToGo");
+    }
+  });
+});
+
 
 //Start the quiz
-const goButton = document.getElementById("startQuiz")
 goButton.addEventListener("click", function(){
 
     //First check if the user has selected any decks
@@ -66,6 +73,13 @@ goButton.addEventListener("click", function(){
 
             //Display the answers
             displayAnswers(question.allAnswerImages)
+
+            //Play the sound right away
+            const sound = document.querySelectorAll('.question-audio')[0];
+            sound.currentTime = 0
+            setTimeout(() => {
+              sound.play();
+            }, 250);
 
             //React to the user input
             let answers = document.querySelectorAll('.answer')
@@ -185,16 +199,19 @@ function getPossibleAnswers(questionPool) {
   return possibleAnswers;
 }
 
-
 function writeQuestion (cards){
   // Make a copy of all the cards we could write questions for.
   //Note: the spread operator will create a copy or the array.
   let questionPool = [...cards];
 
-  //We will likely need to filter out old questions from question pool to prevent duplicate questions.  
+  //Filter old questions out of question pool 
+  questionPool = questionPool.filter(item => !userScore.questions.includes(item));
 
   //Get the correct answer
   let correctAnswer = getCorrectAnswer(questionPool);
+
+  //Remove the correct answer from the question pool
+  questionPool = questionPool.filter(item => item !== correctAnswer);
   
   // Log the question in user data 
   userScore.questions.push(correctAnswer);
