@@ -4,7 +4,7 @@ let okDecks = [];
 // Create object for score and user data: 
 let userScore = {
   date : todaysDate(),
-  quizLength : 1,
+  quizLength : 10,
   phases:[],
   score : 0,
   questionNumber : 0,
@@ -178,21 +178,20 @@ function getCorrectAnswer(questionPool){
   return questionCard;
 }
 
-function getPossibleAnswers (questionPool){
-  //List of possible answers
-  possibleAnswers = []
-  //Get the incorrect answers 
-  for (let i = 0; i< 3; i++){
-    let answerIndex;
-    //Make sure there are no duplicate answers
+function getPossibleAnswers(questionPool) {
+  //Get unique possible answers for the questions. 
+  const possibleAnswers = [];
+  for (let i = 0; i < 3; i++) {
+    let answerCard;
     do {
-      answerIndex = randomNumber(questionPool.length);
-    } while (possibleAnswers.includes(answerIndex));
-    const answerCard = questionPool[answerIndex]
-    possibleAnswers.push(answerCard)
+      const answerIndex = randomNumber(questionPool.length);
+      answerCard = questionPool[answerIndex];
+    } while (possibleAnswers.includes(answerCard));
+    possibleAnswers.push(answerCard);
   }
   return possibleAnswers;
 }
+
 
 function writeQuestion (cards){
   // Make a copy of all the cards we could write questions for.
