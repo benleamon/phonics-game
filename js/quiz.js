@@ -4,7 +4,7 @@ let okDecks = [];
 // Create object for score and user data: 
 let userScore = {
   date : todaysDate(),
-  quizLength : 10,
+  quizLength : 1,
   phases:[],
   score : 0,
   questionNumber : 0,
@@ -392,17 +392,18 @@ function displayCert() {
   cert.classList.toggle("hidden");
   cert.classList.toggle("visibleCert");
 
-  // Add date, phases
+  // Add phases
   let string = "";
   for (let i = 0; i < userScore.phases.length; i++) {
     string = string + "Phase " + userScore.phases[i] + " ";
   }
   let element = document.createElement("p");
   element.textContent = string;
-  // const info = document.getElementById("info")
-  // info.appendChild(element);
-  // element.textContent = "Let's practice these ones again!"
-  // info.appendChild(element)
+  const info = document.getElementById("info")
+  info.appendChild(element);
+  // Add date 
+  element.textContent = userScore.date
+  info.appendChild(element)
 
   // Add vanity stars
   if (userScore.score == 0) {
