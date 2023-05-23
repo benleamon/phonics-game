@@ -4,7 +4,7 @@ let okDecks = [];
 // Create object for score and user data: 
 let userScore = {
   date : todaysDate(),
-  quizLength : 1,
+  quizLength : 10,
   phases:[],
   score : 0,
   questionNumber : 0,
@@ -64,6 +64,7 @@ goButton.addEventListener("click", function(){
 
         //Run through all questions in the quiz
         function startQuiz(){
+
           if (userScore.questionNumber < userScore.quizLength){
             //Create a question: 
             question = writeQuestion(allCards);
@@ -398,10 +399,10 @@ function displayCert() {
   }
   let element = document.createElement("p");
   element.textContent = string;
-  const info = document.getElementById("info")
-  info.appendChild(element);
-  element.textContent = "Let's practice these ones again!"
-  info.appendChild(element)
+  // const info = document.getElementById("info")
+  // info.appendChild(element);
+  // element.textContent = "Let's practice these ones again!"
+  // info.appendChild(element)
 
   // Add vanity stars
   if (userScore.score == 0) {
@@ -422,44 +423,51 @@ function displayCert() {
     }
   }
   
+  //Check if the user has any missed questions that merit review
+  if(userScore.missedQuestions.length >0){
+    //Add practice message: 
+    const missedContainer = document.getElementById("missed");
+    const message = document.createElement("p")
+    message.textContent = "Let's practice these ones again!"
+    missedContainer.appendChild(message)
+    // Add Missed cards
+    userScore.missedQuestions.forEach((fileName) => {
+      // Create an image for the card
+      const card = document.createElement("img");
+      // Set the image source
+      card.src = "img/" + fileName + ".png";
+      // Apply card css class
+      card.classList.add("card");
+      // give the card an id
+      const cardId = fileName;
+      card.id = cardId;
 
-  // Add Missed cards
-  const missedContainer = document.getElementById("missed");
-  userScore.missedQuestions.forEach((fileName) => {
-    // Create an image for the card
-    const card = document.createElement("img");
-    // Set the image source
-    card.src = "img/" + fileName + ".png";
-    // Apply card css class
-    card.classList.add("card");
-    // give the card an id
-    const cardId = fileName;
-    card.id = cardId;
+      // Create audio element for the card
+      // Create audio element
+      const audioElement = document.createElement("audio");
+      audioElement.id = "sound" + cardId;
+      audioElement.preload = "auto";
 
-    // Create audio element for the card
-    // Create audio element
-    const audioElement = document.createElement("audio");
-    audioElement.id = "sound" + cardId;
-    audioElement.preload = "auto";
+      // Create source
+      const sourceElement = document.createElement("source");
+      sourceElement.src = "audio/" + cardId + ".mp3";
+      sourceElement.type = "audio/mpeg";
 
-    // Create source
-    const sourceElement = document.createElement("source");
-    sourceElement.src = "audio/" + cardId + ".mp3";
-    sourceElement.type = "audio/mpeg";
+      audioElement.appendChild(sourceElement);
+      document.getElementById("audio").appendChild(audioElement);
 
-    audioElement.appendChild(sourceElement);
-    document.getElementById("audio").appendChild(audioElement);
+      // Connect card to card's corresponding audio
+      card.addEventListener("click", function () {
+        const audio = document.getElementById("sound" + cardId);
+        audio.currentTime = 0;
+        audio.play();
+      });
 
-    // Connect card to card's corresponding audio
-    card.addEventListener("click", function () {
-      const audio = document.getElementById("sound" + cardId);
-      audio.currentTime = 0;
-      audio.play();
-    });
+      // add card to the site
+      missedContainer.appendChild(card);
+      });    
+  }
 
-    // add card to the site
-    missedContainer.appendChild(card);
-  });
 }
 
 

@@ -1,3 +1,7 @@
+*{
+	font-family: 'Comic Neue', sans-serif;
+}
+
 /* Intro CSS */
 .deck_button{
 	opacity: 0.6;
@@ -58,7 +62,7 @@ svg{
 	display:grid;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
 	gap: .25rem;
-	justify-content: center;
+	justify-items: center;
 }
 
 .answer, .card{
@@ -66,7 +70,6 @@ svg{
 	height: auto;
 	border: none;
 }
-
 
 .incorrect{
 	opacity: .5;
