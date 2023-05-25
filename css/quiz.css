@@ -1,0 +1,108 @@
+*{
+	font-family: 'Comic Neue', sans-serif;
+}
+
+/* Intro CSS */
+.deck_button{
+	opacity: 0.6;
+}
+
+.selectedDeck{
+	opacity: 1;
+}
+
+.intro{
+	grid-column: 2;
+	justify-self: center;
+}
+
+.back-button{
+	height:auto;
+}
+svg{
+	height: auto;
+	margin: 1rem;
+}
+
+#startQuiz{
+	opacity: 0.6;
+}
+
+.okToGo{
+	opacity: 1 !important; 
+}
+
+#startQuiz, #nextQuestionButton {
+	display: inline-block;
+	margin:.5rem;
+	padding: 1rem 2rem;
+	border: 0px solid #8e7cc3;
+	border-radius: 50px;
+	font-family: 'Comic Neue', sans-serif;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	background-color:  	#8DB255;
+}
+
+/* Question CSS */
+#question{
+	display: grid;
+	row-gap: 1rem;
+}
+
+#question-sound{
+	justify-self: center;
+	align-self: center;
+	max-width: 200px;
+}
+
+#answers, #missed{
+	display:grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+	gap: .25rem;
+	justify-items: center;
+}
+
+.answer, .card{
+	width: 100%;
+	height: auto;
+	border: none;
+}
+
+.incorrect{
+	opacity: .5;
+}
+
+.next-question{
+	grid-column: 1
+}
+
+#cert{
+	grid-column: 2;
+/*	place-items: center;*/
+/*	width: 100%;*/
+}
+
+.visibleCert{
+	display: grid;
+	justify-items: center;
+}
+
+h2{
+	font-size: 4rem;
+	text-align: center;
+/*	justify-self: center;*/
+/*	width: 100%;*/
+}
+
+#stars{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.star{
+	width:4rem;
+}

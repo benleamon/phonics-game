@@ -21,7 +21,6 @@ function getImageList() {
           }
         }
       }
-      console.log("File names: "+imageList) 
       return imageList;
     })
     // Handle errors
@@ -32,7 +31,6 @@ function toggleHome(){
   const elements = document.querySelectorAll(".intro")
   elements.forEach((element) => {
     element.classList.toggle("hidden")
-    console.log("toggled")
   })
 }
 
@@ -66,7 +64,6 @@ function displayCards(deck) {
   //Get all possible cards, filter to only display the ones we want
   getImageList().then(imageList => {
     const filteredList = imageList.filter(name => name.startsWith(deck));
-    console.log("cards filtered. List:" +filteredList);
 
     //For each card, create a button with that card image: 
     filteredList.forEach(fileName =>{
@@ -101,7 +98,6 @@ deckButtons.forEach(function(button){
 	// What to do when a deck is selected
 	button.addEventListener('click', function(){
 		whatDeck = button.id.replace("deck","")
-		console.log("Button click, id:" + whatDeck);
     toggleHome();
 		//display requested cards 
     displayCards(whatDeck)

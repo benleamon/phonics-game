@@ -1,0 +1,74 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Phonics Cards</title>
+  <!-- <meta name="Phonics Cards" content=""> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <!-- Back button -->
+  <a class = "back-button" href="./index.html"><svg id = "back" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M512 256A256 256 0 1 0 0 256a256 256 0 1 0 512 0zM231 127c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-71 71L376 232c13.3 0 24 10.7 24 24s-10.7 24-24 24l-182.1 0 71 71c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L119 273c-9.4-9.4-9.4-24.6 0-33.9L231 127z"/></svg></a>
+  <h1 class="intro">Phonics Quiz</h1>
+  <p class = "intro">What do you want to practice?</p>
+  <div class="button-wrapper intro">
+    <button id="deck2" class="deck_button">Phase 2</button>  
+  </div>
+  <div class="button-wrapper intro">
+    <button id="deck3" class="deck_button">Phase 3</button>  
+  </div>
+  <div class="button-wrapper intro">
+    <button id="deck4" class="deck_button">Phase 4</button> 
+  </div>
+  <div class="button-wrapper intro">
+    <button id="deck5" class="deck_button">Phase 5</button>  
+  </div>
+  <div class="button-wrapper intro">
+    <button id="startQuiz">Start!</button>  
+  </div>
+
+
+  <div id = "question">
+    <svg id = "question-sound" class = "hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+    <div id=audio>
+      <!-- <audio id="audio1" class = "audio" preload="auto">
+        <source src="./audio/button.mp3" type="audio/mpeg">
+      </audio> -->
+      <audio id="correct-audio" class = "audio" preload="auto">
+        <source src="./audio/answer_right.mp3" type="audio/mpeg">
+      </audio>
+      <audio id="incorrect-audio" class = "audio" preload="auto">
+        <source src="./audio/answer_wrong-12.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    <div id = "answers"></div>
+  </div>
+  <div id="cert" class="hidden">
+    <h2>Good Job!</h2>
+    <div id="stars"></div>
+    <div id="info"></div>
+    <div id="missed"></div>
+  </div>
+
+  
+
+  <!-- <script src="js/vendor/modernizr-{{MODERNIZR_VERSION}}.min.js"></script> -->
+  <script src="js/quiz.js"></script>
+
+</body>
+
+</html>
