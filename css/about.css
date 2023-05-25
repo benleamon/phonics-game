@@ -1,0 +1,11 @@
+body {
+  display: grid;
+  grid-template-columns: minmax(1rem, 1fr) minmax(0, 70ch) minmax(1rem, 1fr);
+  background-color: #eceff4;
+}
+
+h1, p, h2 {
+  grid-column: 2;
+  justify-self: center;
+  font-family: 'Comic Neue', cursive;
+}
