@@ -4,7 +4,7 @@ let okDecks = [];
 // Create object for score and user data: 
 let userScore = {
   date : todaysDate(),
-  quizLength : 1,
+  quizLength : 10,
   phases:[],
   score : 0,
   questionNumber : 0,
