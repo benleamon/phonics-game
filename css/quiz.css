@@ -83,8 +83,6 @@ svg{
 
 #cert{
 	grid-column: 2;
-/*	place-items: center;*/
-/*	width: 100%;*/
 }
 
 .visibleCert{
@@ -95,8 +93,6 @@ svg{
 h2{
 	font-size: 4rem;
 	text-align: center;
-/*	justify-self: center;*/
-/*	width: 100%;*/
 }
 
 #stars{
