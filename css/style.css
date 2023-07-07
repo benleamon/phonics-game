@@ -1,7 +1,21 @@
+html{
+	height: 100%;
+	background-color: #90EE90;
+}
+
 body{
 	display: grid;
 	grid-template-columns: 4rem 1fr 4rem;
+/*	 grid-template-rows: repeat(auto-fill, minmax(1fr, auto)) auto;*/
 	background-color: #eceff4;
+	margin: 0;
+/*	margin-bottom: 1rem;*/
+  padding: 0;
+  height: 100%;
+  background: url('../img/hill-and-clouds.svg'), linear-gradient(to bottom, #87CEEB 50%, #90EE90 50%);
+  background-position: center center, center center;
+  background-repeat: repeat-x, repeat-x;
+  background-size: contain, auto 100%;
 
 }
 
@@ -14,6 +28,8 @@ h1{
 
 .button-wrapper{
 	grid-column: 2;
+	display: inline-block;
+	vertical-align: top;
 	justify-self: center;
 }
 .deck_button , .about_button{
@@ -27,6 +43,7 @@ h1{
 	font-weight: bold;
 	color: #fff;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+/*	vertical-align: top;*/
 }
 
 #deck2 {
